@@ -2,10 +2,53 @@ $(document).ready(function () {
 
     var topics = ["Usher", "Foo Fighters", "Green Day", "Black Sabbath", "Kanye", "Cage The Elephant", "Will Smith", "Beyonce"];
 
+    function getLyrics(artist) {
+      var artistSearch = artist;
+      document.getElementById("lyrics").textContent = "";
+      $.ajax({
+        type: "GET",
+        data: {
+          apikey: "970c468c2829771311ab874e41367e44",
+          q_artist: artistSearch,
+          format: "jsonp",
+          callback: "jsonp_callback"
+        },
+        url: "https://api.musixmatch.com/ws/1.1/track.search",
+        dataType: "jsonp",
+        jsonpCallback: "jsonp_callback",
+        contentType: "application/json",
+        success: function(data) {
+          var randomTracks = data.message.body.track_list;
+          for (var i = 0; i < randomTracks.length; i++) {
+            var thisTrack = randomTracks[i].track.track_name;
+
+            var p = document.createElement("p");
+            p.textContent = thisTrack;
+            p.id = thisTrack;
+
+            document.getElementById("lyrics").appendChild(p).style.opacity = 1;
+            var b = document.createElement("br");
+            document.getElementById("lyrics").appendChild(b).style.opacity = 1;
+            var b2 = document.createElement("br");
+            document.getElementById("lyrics").appendChild(b2).style.opacity = 1;
+            var b3 = document.createElement("br");
+            document.getElementById("lyrics").appendChild(b3).style.opacity = 1;
+
+          }
+          document.getElementById("tracksTitle").setAttribute("opacity", "1.0");
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          console.log(jqXHR);
+          console.log(textStatus);
+          console.log(errorThrown);
+        }
+      });
+    }
+
     function displaySpaceStuff() {
         var space = $(this).attr("data-name");
         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + space + "&api_key=mePpseQoZWWEY5RregXq0iDwpYlq2U9J&limit=10";
-
+        getLyrics(space);
         $.ajax({
             url: queryURL,
             method: "GET"
@@ -65,6 +108,3 @@ $(document).ready(function () {
     $(document).on("click", ".spaceClass", displaySpaceStuff);
     myButtons();
 });
-
-
-
