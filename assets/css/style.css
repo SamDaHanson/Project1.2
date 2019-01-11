@@ -96,5 +96,26 @@ p {
   border-color: #66FCF1; 
 }
 
+#artistName {
+  /* font-style: italic; */
+  
+}
+
+#space-value{
+
+  /* max-height: 1000px; */
+ 
+  /* overflow-y: scroll; */
+  /* overflow-y: auto; */
+  overflow: hidden;
+
+}
+
+#backgroundcolor1 {
+  overflow: hidden;
+  max-height: 1000px;
+
+}
+
 
 
