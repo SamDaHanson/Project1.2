@@ -160,6 +160,7 @@ $(document).ready(function () {
         for (var i = 0; i < topics.length; i++) {
             var z = $("<button>");
             z.addClass("spaceClass");
+            z.addClass("hvr-pulse-shrink");
             z.attr("data-name", topics[i]);
             z.text(topics[i]);
             $("#myButtons").append(z);

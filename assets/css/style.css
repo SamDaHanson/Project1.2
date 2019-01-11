@@ -90,6 +90,12 @@ p {
   font-family: 'Oswald', sans-serif; 
 }
 
+.spaceClass {
+
+  font-size: 2em;
+
+}
+
 .spaceClass:hover, .spaceClass:focus, .spaceClass:active, .spaceClass.active {
   color: #fff;
   background-color: #C5C6C7;
@@ -113,7 +119,7 @@ p {
 
 #backgroundcolor1 {
   overflow: hidden;
-  max-height: 1000px;
+  max-height: 900px;
 
 }
 
