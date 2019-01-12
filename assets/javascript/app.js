@@ -9,23 +9,18 @@
   };
   firebase.initializeApp(config);
 
+//Create Firebase Refs
 var database = firebase.database();
-
-//Create references
-// const dbDataRef = firebase.database().ref().child('Data');
-// const dbArtistsRef = dbDataRef.child('Artists');
-
-
 var artistsRef = database.ref().child('Artists');
-// var key = artistsRef.push().key;
-
 $("#tracksTitle").hide();
 
 $(document).ready(function () {
-
     
+    //Initial buttons upon first load
     var topics = ["Usher", "Foo Fighters", "Green Day", "Black Sabbath", "Kanye", "Cage The Elephant", "Will Smith", "Beyonce"];
 
+
+    //AJAX CALL #1: MUSIXMATCH API
     function getLyrics(artist) {
         $("#tracksTitle").show();
     var artistSearch = artist;
@@ -48,7 +43,7 @@ $(document).ready(function () {
             var thisTrack = randomTracks[i].track.track_name;
 
             var p = document.createElement("p");
-            p.textContent = thisTrack;
+            p.textContent = `"${thisTrack}"`;
             p.id = thisTrack;
 
             document.getElementById("lyrics").appendChild(p).style.opacity = 1;
@@ -70,8 +65,7 @@ $(document).ready(function () {
       });
     }
 
-    console.log($('#backgroundcolor1').height());
-
+    //AJAX CALL #2: GIPHY API
     function displaySpaceStuff() {
         var space = $(this).attr("data-name");
         $("#artistName").text(`${space}'s`);
@@ -101,10 +95,6 @@ $(document).ready(function () {
                 }
             }
 
-
-            console.log($("#space-value").height());
-            console.log($("#backgroundcolor1").height());
-
             $(".image").on("click", function () {
                 var state = $(this).attr("data-state");
 
@@ -117,14 +107,13 @@ $(document).ready(function () {
                 }
             });
 
+            //AUTO-SCROLL GIF FUNCTIONALITY
             if ($('#space-value').height() > ($("#backgroundcolor1").height() - 30)) {
                 setInterval(function () {
-        
-                    start();
+                start();
             }, 500); 
         
             }
-        
 
             function animateContent(direction) {  
             var animationOffset = $('#backgroundcolor1').height() - $('#space-value').height()-30;
@@ -132,7 +121,6 @@ $(document).ready(function () {
                 animationOffset = 0;
             }
         
-            console.log("animationOffset:"+animationOffset);
             $('#space-value').animate({ "marginTop": (animationOffset)+ "px" }, 25000);
             }
         
@@ -175,7 +163,7 @@ $(document).ready(function () {
             name: space,
         };
        
-        artistsRef.update(newArtist);
+        artistsRef.push(newArtist);
 
         if (space != '' && !topics.includes(space)) {
             topics.push(space);
@@ -184,33 +172,6 @@ $(document).ready(function () {
         }
     });
 
-    // $("#space-value").scroll(function() {
-    //     if ( $("#space-value").scrollTop() > 3000 ) {
-            
-        
-    //         this.scrollBy(0,1);
-    //         // scrolldelay = setTimeout(pageScroll,10);
-    //     // }
-    //         $("#space-value").scrollTop(5);
-    //     }
-    //     else if ( $("#space-value").scrollTop() == 0 ) {
-    //         $("#space-value").scrollTop(3000);
-    //     }    
-
-    //     // $("space-value").scrollTop($("space-value").height());
-    //     // pageScroll();
-    // });
-
-    
-
-    
-
-    
-
-    // function pageScroll() {
-    //     window.scrollBy(0,1);
-    //     scrolldelay = setTimeout(pageScroll,10);
-    // }
 
     $(document).on("click", ".spaceClass", displaySpaceStuff);
     myButtons();
